@@ -1,6 +1,7 @@
 import dpsLogo from './assets/DPS.svg';
 import './App.css';
 import CustomerList from './components/CustomerList';
+import ErrorBoundary from './components/ErrorBoundary';
 
 function App() {
 	return (
@@ -11,7 +12,9 @@ function App() {
 				</a>
 			</div>
 			<div className="home-card">
-				<CustomerList />
+				<ErrorBoundary>
+					<CustomerList />
+				</ErrorBoundary>
 			</div>
 		</>
 	);
