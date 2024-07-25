@@ -2,7 +2,18 @@ import { useState, useEffect, useMemo } from 'react';
 import { fetchCustomers } from '../services/api';
 import { User } from '../types';
 
-const useCustomers = (nameFilter = '', cityFilter = '') => {
+interface UseCustomersReturn {
+	customers: User[];
+	loading: boolean;
+	error: Error | null;
+	cities: string[];
+	oldestUsers: Record<string, User>;
+}
+
+const useCustomers = (
+	nameFilter: string = '',
+	cityFilter: string = ''
+): UseCustomersReturn => {
 	const [customers, setCustomers] = useState<User[]>([]);
 	const [loading, setLoading] = useState<boolean>(true);
 	const [error, setError] = useState<Error | null>(null);
@@ -44,7 +55,24 @@ const useCustomers = (nameFilter = '', cityFilter = '') => {
 		return Array.from(citySet).sort();
 	}, [customers]);
 
-	return { customers: filteredCustomers, loading, error, cities };
+	const oldestUsers = useMemo(() => {
+		const cityOldest: Record<string, User> = {};
+		filteredCustomers.forEach((customer) => {
+			const city = customer.address.city;
+			if (!cityOldest[city] || customer.age > cityOldest[city].age) {
+				cityOldest[city] = customer;
+			}
+		});
+		return cityOldest;
+	}, [filteredCustomers]);
+
+	return {
+		customers: filteredCustomers,
+		loading,
+		error,
+		cities,
+		oldestUsers,
+	};
 };
 
 export default useCustomers;
