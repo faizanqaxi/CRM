@@ -1,15 +1,17 @@
+import { useState } from 'react';
 import SearchBar from './SearchBar';
 import CityFilter from './CityFilter';
 import useCustomers from '../hooks/useCustomers';
 
 const CustomerList = () => {
-	const { customers } = useCustomers();
+	const [nameFilter, setNameFilter] = useState('');
+	const { customers } = useCustomers(nameFilter);
 
 	return (
 		<div className="customer-list">
 			<h1>Customer List</h1>
 			<div className="filters">
-				<SearchBar value="" onChange={() => {}} />
+				<SearchBar value={nameFilter} onChange={setNameFilter} />
 				<CityFilter
 					cities={['City1', 'City2']}
 					value="City1"
