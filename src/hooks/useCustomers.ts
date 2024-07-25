@@ -32,7 +32,14 @@ const useCustomers = (nameFilter = '') => {
 		});
 	}, [customers, nameFilter]);
 
-	return { customers: filteredCustomers, loading, error };
+	const cities = useMemo(() => {
+		const citySet = new Set(
+			customers.map((customer) => customer.address.city)
+		);
+		return Array.from(citySet).sort();
+	}, [customers]);
+
+	return { customers: filteredCustomers, loading, error, cities };
 };
 
 export default useCustomers;
