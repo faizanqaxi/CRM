@@ -2,7 +2,7 @@ import { useState, useEffect, useMemo } from 'react';
 import { fetchCustomers } from '../services/api';
 import { User } from '../types';
 
-const useCustomers = (nameFilter = '') => {
+const useCustomers = (nameFilter = '', cityFilter = '') => {
 	const [customers, setCustomers] = useState<User[]>([]);
 	const [loading, setLoading] = useState<boolean>(true);
 	const [error, setError] = useState<Error | null>(null);
@@ -28,9 +28,14 @@ const useCustomers = (nameFilter = '') => {
 		return customers.filter((customer) => {
 			const fullName =
 				`${customer.firstName} ${customer.lastName}`.toLowerCase();
-			return fullName.includes(nameFilter.toLowerCase());
+			const nameMatch = fullName.includes(nameFilter.toLowerCase());
+			const cityMatch =
+				cityFilter === '' ||
+				customer.address.city.toLowerCase() ===
+					cityFilter.toLowerCase();
+			return nameMatch && cityMatch;
 		});
-	}, [customers, nameFilter]);
+	}, [customers, nameFilter, cityFilter]);
 
 	const cities = useMemo(() => {
 		const citySet = new Set(
