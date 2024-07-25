@@ -5,7 +5,8 @@ import useCustomers from '../hooks/useCustomers';
 
 const CustomerList = () => {
 	const [nameFilter, setNameFilter] = useState('');
-	const { customers } = useCustomers(nameFilter);
+	const [cityFilter, setCityFilter] = useState('');
+	const { customers, cities } = useCustomers(nameFilter, cityFilter);
 
 	return (
 		<div className="customer-list">
@@ -13,9 +14,9 @@ const CustomerList = () => {
 			<div className="filters">
 				<SearchBar value={nameFilter} onChange={setNameFilter} />
 				<CityFilter
-					cities={['City1', 'City2']}
-					value="City1"
-					onChange={() => {}}
+					cities={cities}
+					value={cityFilter}
+					onChange={setCityFilter}
 				/>
 			</div>
 			<table>
