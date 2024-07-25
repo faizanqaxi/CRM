@@ -1,7 +1,10 @@
 import SearchBar from './SearchBar';
 import CityFilter from './CityFilter';
+import useCustomers from '../hooks/useCustomers';
 
 const CustomerList = () => {
+	const { customers } = useCustomers();
+
 	return (
 		<div className="customer-list">
 			<h1>Customer List</h1>
@@ -17,12 +20,19 @@ const CustomerList = () => {
 				<thead>
 					<tr>
 						<th>Name</th>
-						<th>Email</th>
 						<th>City</th>
-						<th>Company</th>
+						<th>Birthday</th>
 					</tr>
 				</thead>
-				<tbody>{/* Customer to be populated here */}</tbody>
+				<tbody>
+					{customers.map((customer) => (
+						<tr key={customer.id}>
+							<td>{`${customer.firstName} ${customer.lastName}`}</td>
+							<td>{customer.address.city}</td>
+							<td>{customer.birthDate}</td>
+						</tr>
+					))}
+				</tbody>
 			</table>
 		</div>
 	);
