@@ -23,7 +23,6 @@ const CustomerList = () => {
 
 	return (
 		<div className="customer-list">
-			<h1>Customer List</h1>
 			<div className="filters">
 				<SearchBar onSearchChange={handleSearchChange} />
 				<CityFilter
