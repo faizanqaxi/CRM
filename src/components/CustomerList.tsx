@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useCallback } from 'react';
 import SearchBar from './SearchBar';
 import CityFilter from './CityFilter';
 import HighlightToggle from './HighlightToggle';
@@ -14,6 +14,10 @@ const CustomerList = () => {
 		cityFilter
 	);
 
+	const handleSearchChange = useCallback((value: string) => {
+		setNameFilter(value);
+	}, []);
+
 	if (loading) return <div>Loading...</div>;
 	if (error) return <div>Error: {error.message}</div>;
 
@@ -21,7 +25,7 @@ const CustomerList = () => {
 		<div className="customer-list">
 			<h1>Customer List</h1>
 			<div className="filters">
-				<SearchBar value={nameFilter} onChange={setNameFilter} />
+				<SearchBar onSearchChange={handleSearchChange} />
 				<CityFilter
 					cities={cities}
 					value={cityFilter}
