@@ -31,11 +31,11 @@ The application will then be accessible at http://localhost:3000.
 
 ## Project Structure
 
-`src/components`: React components
-`src/hooks`: Custom React hooks
-`src/utils`: Utility functions
-`src/App.tsx`: Main application component
-`src/App.css`: Main application styles
+-   `src/components`: React components
+-   `src/hooks`: Custom React hooks
+-   `src/utils`: Utility functions
+-   `src/App.tsx`: Main application component
+-   `src/App.css`: Main application styles
 
 ## Future Improvements
 
