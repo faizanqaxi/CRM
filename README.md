@@ -1,4 +1,4 @@
-## CRM Customer List
+## CRM
 
 This project is a React-based Customer Relationship Management (CRM) application that displays a searchable and filterable list of customers.
 
